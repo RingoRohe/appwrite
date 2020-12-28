@@ -45,7 +45,7 @@ class Strava extends OAuth2
      */
     public function getLoginURL(): string
     {
-        return 'http://www.strava.com/oauth/authorize?'.\http_build_query([
+        return 'https://www.strava.com/oauth/authorize?'.\http_build_query([
                 'response_type' => 'code',
                 'client_id' => $this->appID,
                 'scope' => \implode(' ', $this->getScopes()),
@@ -124,8 +124,17 @@ class Strava extends OAuth2
     {
         $user = $this->getUser($accessToken);
 
-        if (isset($user['name'])) {
-            return $user['name'];
+        $names = [];
+
+        if (isset($user['firstname'])) {
+            $names[] = $user['firstname'];
+        }
+        if (isset($user['lastname'])) {
+            $names[] = $user['lastname'];
+        }
+
+        if(!empty($names)) {
+            return \implode(' ', $names);
         }
 
         return '';
@@ -139,7 +148,7 @@ class Strava extends OAuth2
     protected function getUser(string $accessToken): array
     {
         if (empty($this->user)) {
-            $user = $this->request('GET', 'https://api.amazon.com/user/profile?access_token='.\urlencode($accessToken));
+            $user = $this->request('GET', 'https://www.strava.com/api/v3/athlete?access_token='.\urlencode($accessToken));
             $this->user = \json_decode($user, true);
         }
         return $this->user;
