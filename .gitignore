@@ -10,3 +10,4 @@
 .DS_Store
 .php_cs.cache
 .env
+docker-compose_private.yml
