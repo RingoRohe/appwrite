@@ -172,6 +172,15 @@ return [ // Ordered by ABC.
         'beta' => false,
         'mock' => false,
     ],
+    'strava' => [
+        'name' => 'Strava',
+        'developers' => 'https://developers.strava.com/',
+        'icon' => 'icon-strava',
+        'enabled' => true,
+        'form' => false,
+        'beta' => false,
+        'mock' => false,
+    ],
     'vk' => [
         'name' => 'VK',
         'developers' => 'https://vk.com/dev',
